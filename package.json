@@ -1,0 +1,39 @@
+{
+  "name": "group-7-movie-api",
+  "version": "1.0.0",
+  "description": "betechified project # Movie Recommendation API A robust Express.js API designed to manage a movie collection, supporting full CRUD operations. Developed by Group 7 for the BeTechified Capstone Project. # Project Overview This API allows users to manage a movie list without a database, using in-memory data structures to store movie records. It is designed to be clean, readable, and well-documented for easy testing and integration. # Features Create: Add new movie records with details (title, genre, release year, rating). Read: View all movies or filter by specific criteria. Update: Modify existing movie details. Delete: Remove movie records from the system. # Tech Stack Runtime: Node.js Framework: Express.js Testing: Postman # Installation Clone the repository: git clone <your-repo-url>",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand --detectOpenHandles",
+    "lint": "eslint src/ tests/",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obimz/group-7-movie-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/obimz/group-7-movie-api/issues"
+  },
+  "homepage": "https://github.com/obimz/group-7-movie-api#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.4.1",
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.3",
+    "supertest": "^7.2.2"
+  }
+}
