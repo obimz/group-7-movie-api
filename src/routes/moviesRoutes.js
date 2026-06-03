@@ -4,7 +4,24 @@ const router = express.Router();
 /**
  * Routes: moviesRoutes
  * Purpose: Maps HTTP verbs and URI paths to validations and controllers.
- *
+ *const express = require("express");
+const router = express.Router();
+const moviesController = require("../controllers/moviesController");
+
+// CREATE
+router.post("/movies", moviesController.addMovie);
+
+// READ
+router.get("/movies", moviesController.getMovies);
+
+// UPDATE
+router.put("/movies/:id", moviesController.updateMovie);
+
+// DELETE
+router.delete("/movies/:id", moviesController.deleteMovie);
+
+module.exports = router;
+
  * INSTRUCTIONS FOR IMPLEMENTORS:
  * 1. Import moviesController:
  *    - const moviesController = require('../controllers/moviesController');

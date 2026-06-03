@@ -26,7 +26,50 @@
  */
 const getMovies = (req, res, next) => {
   try {
-    // Write your code here
+    // Write your code herelet moviesData = []; // temporary storage
+
+// CREATE: Add a new movie
+exports.addMovie = (req, res) => {
+  const { title, genre, year, rating } = req.body;
+
+  const existing = moviesData.find(m => m.title === title);
+  if (existing) {
+    return res.status(400).json({ error: "Movie already exists" });
+  }
+
+  const newMovie = { id: moviesData.length + 1, title, genre, year, rating };
+  moviesData.push(newMovie);
+
+  res.status(201).json(newMovie);
+};
+
+// READ: Get all movies
+exports.getMovies = (req, res) => {
+  res.json(moviesData);
+};
+
+// UPDATE: Edit a movie
+exports.updateMovie = (req, res) => {
+  const { id } = req.params;
+  const movie = moviesData.find(m => m.id == id);
+
+  if (!movie) return res.status(404).json({ error: "Movie not found" });
+
+  Object.assign(movie, req.body);
+  res.json(movie);
+};
+
+// DELETE: Remove a movie
+exports.deleteMovie = (req, res) => {
+  const { id } = req.params;
+  const index = moviesData.findIndex(m => m.id == id);
+
+  if (index === -1) return res.status(404).json({ error: "Movie not found" });
+
+  moviesData.splice(index, 1);
+  res.json({ message: "Movie deleted" });
+};
+
     res
       .status(501)
       .json({ message: 'getMovies route handler not implemented yet' });
