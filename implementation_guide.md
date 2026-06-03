@@ -347,8 +347,8 @@ graph TD
 5. [✅] **Listen Endpoint**: Create `src/server.js` importing the app object. Listen strictly on `127.0.0.1` and `process.env.PORT`.
 
 ### Stage 3: Data Store & Validation Schema
-1. **In-Memory Store**: Create `src/data/moviesData.js` with an array containing the initial movies list. Write basic retrieval and mutation functions (`getAllMovies`, `addMovie`, `updateMovie`, `deleteMovie`).
-2. **Validator creation**: Implement `src/middleware/validator.js`. Define schema checks using `express-validator` to sanitize and check type compliance for movie elements.
+1. [✅] **In-Memory Store**: Create `src/data/moviesData.js` with an array containing the initial movies list. Write basic retrieval and mutation functions (`getAllMovies`, `addMovie`, `updateMovie`, `deleteMovie`).
+2. [✅] **Validator creation**: Implement `src/middleware/validator.js`. Define schema checks using `express-validator` to sanitize and check type compliance for movie elements.
 
 ### Stage 4: CRUD Controller & Router
 1. **Controller setup**: Create `src/controllers/moviesController.js` and build out the individual CRUD route handling functions. Ensure the logic filters by genre, sorts by rating/year, handles ID check-failures with standard `404` status codes, and prevents duplicate title insertions with `400` status codes.

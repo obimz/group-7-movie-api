@@ -59,11 +59,11 @@ To coordinate collaboration, tasks have been categorized into five logical categ
 - [✅] **05.** Create an initial custom logger middleware to log incoming HTTP requests.
 
 ### Category B: Data Modeling & Schema (Tasks 6-10)
-- [ ] **06.** Define the initial movies array structure in `data.js`.
-- [ ] **07.** Create a validation schema for the movie **Title** (non-empty string).
-- [ ] **08.** Create a validation schema for the movie **Genre** (non-empty string).
-- [ ] **09.** Create a validation schema for the movie **Release Year** (valid integer within bounds).
-- [ ] **10.** Create a validation schema for the movie **Rating** (numeric decimal between 0.0 and 10.0).
+- [✅] **06.** Define the initial movies array structure in `data.js`.
+- [✅] **07.** Create a validation schema for the movie **Title** (non-empty string).
+- [✅] **08.** Create a validation schema for the movie **Genre** (non-empty string).
+- [✅] **09.** Create a validation schema for the movie **Release Year** (valid integer within bounds).
+- [✅] **10.** Create a validation schema for the movie **Rating** (numeric decimal between 0.0 and 10.0).
 
 ### Category C: CRUD Implementation & Unit Testing (Tasks 11-30)
 
