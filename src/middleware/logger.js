@@ -1,15 +1,8 @@
-function requestLogger(req, res, next) {
-  const start = Date.now();
-  const timestamp = new Date().toISOString();
+// Custom middleware for logging requests
+const logger = (req, res, next) => {
+    // log every request
+    console.log(`${req.method} ${req.url} - ${new Date().toISOString()}`);
+    next();
+};
 
-  res.on('finish', () => {
-    const duration = Date.now() - start;
-    console.log(
-      `[${timestamp}] ${req.method} ${req.originalUrl || req.url} ${res.statusCode} - ${duration}ms`
-    );
-  });
-
-  next();
-}
-
-module.exports = requestLogger;
+module.exports = logger;
