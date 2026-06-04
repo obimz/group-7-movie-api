@@ -3,9 +3,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const requestLogger = require('./middleware/logger');
 const globalErrorHandler = require('./middleware/errorHandler');
-const moviesRouter = require('./routes/moviesRoutes');
 
+const moviesRoutes = require('./routes/moviesRoutes');
 const app = express();
+exports.app = app;
 
 // secure app headers
 app.use(helmet());
@@ -20,7 +21,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 // mount main routers
-app.use('/movies', moviesRouter);
+app.use('/movies', moviesRoutes);
 
 // handler 404 resources
 app.use((req, res, next) => {

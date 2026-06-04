@@ -1,3 +1,4 @@
+const movies = require('../data/movies');
 /**
  * Controller: moviesController
  * Purpose: Handles incoming HTTP requests for movie CRUD endpoints.
@@ -26,10 +27,25 @@
  */
 const getMovies = (req, res, next) => {
   try {
-    // Write your code here
+    let moviesList = movies;
+
+    const { genre, sortBy } = req.query;
+     if (genre) {
+      moviesList = moviesList.filter(
+        (movie) =>
+          movie.genre.toLowerCase() === genre.toLowerCase()
+      );
+    }
+     if (sortBy === 'year') {
+      moviesList.sort((a, b) => a.releaseYear - b.releaseYear);
+    }
+
+    if (sortBy === 'rating') {
+      moviesList.sort((a, b) => b.rating - a.rating);
+    }
     res
-      .status(501)
-      .json({ message: 'getMovies route handler not implemented yet' });
+      .status(200)
+      .json(moviesList);
   } catch (error) {
     next(error);
   }
@@ -48,10 +64,17 @@ const getMovies = (req, res, next) => {
  */
 const getMovieById = (req, res, next) => {
   try {
-    // Write your code here
-    res
-      .status(501)
-      .json({ message: 'getMovieById route handler not implemented yet' });
+    const { id } = req.params;
+
+    const movie = movies.find((m) => m.id === Number(id));
+
+    if (!movie) {
+      return res.status(404).json({
+        message: `Movie with ID ${id} not found`,
+      });
+    }
+
+    res.status(200).json(movie);
   } catch (error) {
     next(error);
   }
@@ -70,10 +93,31 @@ const getMovieById = (req, res, next) => {
  */
 const createMovie = (req, res, next) => {
   try {
-    // Write your code here
-    res
-      .status(501)
-      .json({ message: 'createMovie route handler not implemented yet' });
+    const { title, genre, releaseYear, rating } = req.body;
+
+    // check duplicate
+    const existing = movies.find(
+      (m) => m.title.toLowerCase() === title.toLowerCase()
+    );
+
+    if (existing) {
+      return res.status(400).json({
+        message: 'A movie with this title already exists',
+      });
+    }
+
+    // create new movie manually
+    const newMovie = {
+      id: movies.length + 1,
+      title,
+      genre,
+      releaseYear: Number(releaseYear),
+      rating: Number(rating),
+    };
+
+    movies.push(newMovie);
+
+    res.status(201).json(newMovie);
   } catch (error) {
     next(error);
   }
@@ -94,10 +138,28 @@ const createMovie = (req, res, next) => {
  */
 const updateMovie = (req, res, next) => {
   try {
-    // Write your code here
-    res
-      .status(501)
-      .json({ message: 'updateMovie route handler not implemented yet' });
+    const { id } = req.params;
+    const { title, genre, releaseYear, rating } = req.body;
+
+    const index = movies.findIndex((m) => m.id === Number(id));
+
+    if (index === -1) {
+      return res.status(404).json({
+        message: `Movie with ID ${id} not found`,
+      });
+    }
+
+    const updatedMovie = {
+      id: Number(id),
+      title,
+      genre,
+      releaseYear: Number(releaseYear),
+      rating: Number(rating),
+    };
+
+    movies[index] = updatedMovie;
+
+    res.status(200).json(updatedMovie);
   } catch (error) {
     next(error);
   }
@@ -118,10 +180,20 @@ const updateMovie = (req, res, next) => {
  */
 const updateMovieRating = (req, res, next) => {
   try {
-    // Write your code here
-    res
-      .status(501)
-      .json({ message: 'updateMovieRating route handler not implemented yet' });
+    const { id } = req.params;
+    const { rating } = req.body;
+
+    const index = movies.findIndex((m) => m.id === Number(id));
+
+    if (index === -1) {
+      return res.status(404).json({
+        message: `Movie with ID ${id} not found`,
+      });
+    }
+
+    movies[index].rating = Number(rating);
+
+    res.status(200).json(movies[index]);
   } catch (error) {
     next(error);
   }
@@ -141,10 +213,22 @@ const updateMovieRating = (req, res, next) => {
  */
 const deleteMovie = (req, res, next) => {
   try {
-    // Write your code here
-    res
-      .status(501)
-      .json({ message: 'deleteMovie route handler not implemented yet' });
+    const { id } = req.params;
+
+    const index = movies.findIndex((m) => m.id === Number(id));
+
+    if (index === -1) {
+      return res.status(404).json({
+        message: `Movie with ID ${id} not found`,
+      });
+    }
+
+    const deletedMovie = movies.splice(index, 1)[0];
+
+    res.status(200).json({
+      message: 'Movie deleted successfully',
+      movie: deletedMovie,
+    });
   } catch (error) {
     next(error);
   }
