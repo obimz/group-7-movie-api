@@ -1,58 +1,103 @@
 const express = require('express');
 const router = express.Router();
-const movies = require('../data/movies');
 
-// Get the list of movies
+/**
+ * Routes: moviesRoutes
+ * Purpose: Maps HTTP verbs and URI paths to validations and controllers.
+ *const express = require("express");
+const router = express.Router();
+const moviesController = require("../controllers/moviesController");
+
+// CREATE
+router.post("/movies", moviesController.addMovie);
+
+// READ
+router.get("/movies", moviesController.getMovies);
+
+// UPDATE
+router.put("/movies/:id", moviesController.updateMovie);
+
+// DELETE
+router.delete("/movies/:id", moviesController.deleteMovie);
+
+module.exports = router;
+
+ * INSTRUCTIONS FOR IMPLEMENTORS:
+ * 1. Import moviesController:
+ *    - const moviesController = require('../controllers/moviesController');
+ * 2. Import validator middlewares:
+ *    - const { movieValidationRules, ratingValidationRules, validate } = require('../middleware/validator');
+ * 3. Mount the handlers to routes. Remember to place validation middleware arrays BEFORE the controller action.
+ *    - Example for validation: router.post('/', movieValidationRules, validate, moviesController.createMovie);
+ */
+
+// TODO: Import moviesController here
+
+// TODO: Import validators (movieValidationRules, ratingValidationRules, validate) here
+
+/**
+ * Route: GET /movies
+ * Description: Retrieve all movies (supports genre filter & year/rating sorting).
+ * Controller Action: moviesController.getMovies
+ */
 router.get('/', (req, res) => {
-    res.status(200).json(movies);
+  // Replace this placeholder mapping with: moviesController.getMovies
+  res.status(501).json({ message: 'GET /movies route not bound yet' });
 });
 
-// Get a single movie by ID
+/**
+ * Route: GET /movies/:id
+ * Description: Retrieve a single movie by its unique numeric ID.
+ * Controller Action: moviesController.getMovieById
+ */
 router.get('/:id', (req, res) => {
-    const movie = movies.find((m) => m.id === parseInt(req.params.id));
-    if (!movie) return res.status(404).json({ message: 'Movie not found' });
-    res.status(200).json(movie);
+  // Replace this placeholder mapping with: moviesController.getMovieById
+  res.status(501).json({ message: 'GET /movies/:id route not bound yet' });
 });
 
-// Add a new movie using POST
+/**
+ * Route: POST /movies
+ * Description: Add a new movie.
+ * Validation Rules: movieValidationRules, validate
+ * Controller Action: moviesController.createMovie
+ */
 router.post('/', (req, res) => {
-    const { title, genre, releaseYear, rating } = req.body;
-    if (!title || !genre || !releaseYear || !rating || title.trim() === '' || genre.trim() === '' || isNaN(releaseYear) || isNaN(rating)) {
-        return res.status(400).json({ message: 'Please provide title, genre, releaseYear and rating' });
-    }
-    const newMovie = { id: movies.length + 1, title, genre, releaseYear, rating };
-    movies.push(newMovie);
-    res.status(201).json(newMovie);
+  // Replace this placeholder mapping with validators and: moviesController.createMovie
+  res.status(501).json({ message: 'POST /movies route not bound yet' });
 });
 
-// Update an existing movie using PATCH
-router.patch('/:id', (req, res) => {
-    const movie = movies.find((m) => m.id === parseInt(req.params.id));
-    if (!movie) return res.status(404).json({ message: 'Movie not found' });
-    Object.assign(movie, req.body);
-    res.status(200).json(movie);
-});
-
-// Replace an existing movie using PUT
+/**
+ * Route: PUT /movies/:id
+ * Description: Update an entire movie object by its ID.
+ * Validation Rules: movieValidationRules, validate
+ * Controller Action: moviesController.updateMovie
+ */
 router.put('/:id', (req, res) => {
-    const movie = movies.findIndex((m) => m.id === parseInt(req.params.id));
-    if (movie === -1) return res.status(404).json({ message: 'Movie not found' });
-    const { title, genre, releaseYear, rating } = req.body;
-    if (!title || !genre || !releaseYear || !rating || title.trim() === '' || genre.trim() === '' || isNaN(releaseYear) || isNaN(rating)) {
-        return res.status(400).json({ message: 'Please provide title, genre, releaseYear and rating' });
-    }
-    movies[movie] = { id: movies[movie].id, title, genre, releaseYear, rating };
-    res.status(200).json(movies[movie]);
+  // Replace this placeholder mapping with validators and: moviesController.updateMovie
+  res.status(501).json({ message: 'PUT /movies/:id route not bound yet' });
 });
 
-// Delete a movie by ID
+/**
+ * Route: PATCH /movies/:id/rating
+ * Description: Update only the rating of an existing movie.
+ * Validation Rules: ratingValidationRules, validate
+ * Controller Action: moviesController.updateMovieRating
+ */
+router.patch('/:id/rating', (req, res) => {
+  // Replace this placeholder mapping with validators and: moviesController.updateMovieRating
+  res
+    .status(501)
+    .json({ message: 'PATCH /movies/:id/rating route not bound yet' });
+});
+
+/**
+ * Route: DELETE /movies/:id
+ * Description: Delete a movie by its ID.
+ * Controller Action: moviesController.deleteMovie
+ */
 router.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = movies.findIndex((m) => m.id === id);
-    if (index === -1) return res.status(404).json({ message: 'Movie not found' });
-    movies.splice(index, 1);
-    res.status(200).json({ message: 'Movie deleted successfully' });
+  // Replace this placeholder mapping with: moviesController.deleteMovie
+  res.status(501).json({ message: 'DELETE /movies/:id route not bound yet' });
 });
-
 
 module.exports = router;
